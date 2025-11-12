@@ -1,0 +1,139 @@
+{
+  "processes": [
+    {
+      "id": "CBCMP",
+      "name": "CBCMP",
+      "description": "Chemical mechanical planarization step",
+      "default_issue_types": ["repeating_equipment", "process_core", "handling"],
+      "critical_parameters": ["Chamber pressure", "Slurry flow", "Platen speed"]
+    },
+    {
+      "id": "RMG",
+      "name": "RMG",
+      "description": "Replacement metal gate process",
+      "default_issue_types": ["process_core", "handling"],
+      "critical_parameters": ["Gas flow", "Chamber temperature", "RF power"]
+    },
+    {
+      "id": "PC",
+      "name": "Photo Coat",
+      "description": "Photoresist coating step",
+      "default_issue_types": ["process_core", "handling"],
+      "critical_parameters": ["Resist thickness", "Spin speed", "Bake temperature"]
+    }
+  ],
+  "spatial_zones": [
+    {
+      "id": "inner",
+      "name": "Inner Area",
+      "radius_norm_min": 0.0,
+      "radius_norm_max": 0.33,
+      "description": "웨이퍼 중심부. 챔버 내 가스/플라즈마 분포, 온도, CMP 압력 등이 중앙에서 불균일할 때 결함이 집중됩니다.",
+      "related_causes": [
+        "증착/식각 챔버의 중앙 집중 가스 흐름",
+        "CMP 패드 압력 불균일",
+        "열처리(퍼니스) 온도 편차",
+        "중앙부 파티클/케미컬 잔류"
+      ]
+    },
+    {
+      "id": "middle",
+      "name": "Middle Area",
+      "radius_norm_min": 0.33,
+      "radius_norm_max": 0.66,
+      "description": "중앙과 외곽 사이의 영역. 공정 균일도가 약간 어긋날 때 줄무늬, 두께 불균일이 자주 발생합니다.",
+      "related_causes": [
+        "스핀 코팅 PR 두께의 줄무늬(striation)",
+        "CMP 패드 마모나 컨디셔닝 부족",
+        "공정 챔버 라이너/전극 노후화",
+        "전반적인 가스/온도 분포의 미세 불균일"
+      ]
+    },
+    {
+      "id": "outer",
+      "name": "Outer Area",
+      "radius_norm_min": 0.66,
+      "radius_norm_max": 1.0,
+      "description": "웨이퍼 외곽. 핸들링 장비 흔적, 엣지 비드, 가스/열 분포 불균일이 쉽게 발생합니다.",
+      "related_causes": [
+        "로봇 암·진공 척·클램프에 의한 물리적 손상",
+        "PR 코팅 Edge bead 및 박리",
+        "공정 가스의 가장자리 외부 누출/흡수 효과",
+        "세정/건조 불균일"
+      ]
+    }
+  ],
+  "issue_types": [
+    {
+      "id": "equipment_issue",
+      "name": "장비 문제",
+      "rank_score_default": 6,
+      "symptoms": "특정 위치나 패턴에서 반복적으로 발생하는 결함, 클러스터링, Hotspot",
+      "recommended_initial_actions": [
+        "관련 장비 캘리브레이션 및 상세 점검",
+        "Hotspot 위치에 대한 센서/노즐 청정도 확인",
+        "마모 가능 부품 교체 및 유지보수 이력 확인",
+        "장비 로그/알람 기록 분석"
+      ]
+    },
+    {
+      "id": "cmp_process_issue",
+      "name": "CMP 공정 문제",
+      "rank_score_default": 5,
+      "symptoms": "CMP 단계에서 중앙/중간 영역의 연마율 불균일, 디싱/에로전 증가",
+      "recommended_initial_actions": [
+        "CMP 패드 상태 및 컨디셔닝 프로파일 확인",
+        "슬러리 공급 균일도, 압력 분포 모니터링",
+        "플래튼과 웨이퍼 헤드 정렬, 진공 상태 점검",
+        "최근 레시피 변경 및 LOT 이력 검토"
+      ]
+    },
+    {
+      "id": "deposition_issue",
+      "name": "Deposition 공정 문제",
+      "rank_score_default": 4,
+      "symptoms": "증착층 두께/조성 불균일, 중앙 또는 중간 영역 편차",
+      "recommended_initial_actions": [
+        "증착 챔버 온도/가스 유량 균일도 점검",
+        "샤워헤드/노즐 클린 상태 확인 및 교체 검토",
+        "타겟 마모 상태 및 RF 파워 안정성 확인",
+        "레이어 두께 모니터링 데이터 검증"
+      ]
+    },
+    {
+      "id": "etch_litho_issue",
+      "name": "Etch/Litho 공정 문제",
+      "rank_score_default": 3,
+      "symptoms": "식각 잔여물 또는 포토 패턴 균일도 저하, 스트리에이션",
+      "recommended_initial_actions": [
+        "포토레지스트 도포/현상 조건 점검",
+        "노광 장비 정렬 및 에너지 출력 확인",
+        "식각 가스 조성, 압력, RF 파워 재검증",
+        "식각 잔여물 및 세정 상태 확인"
+      ]
+    },
+    {
+      "id": "wafer_handling_issue",
+      "name": "웨이퍼 핸들링 문제",
+      "rank_score_default": 2,
+      "symptoms": "웨이퍼 외곽의 스크래치, 찍힘, 로봇/클램프 자국",
+      "recommended_initial_actions": [
+        "웨이퍼 이송 로봇/진공 척 정렬 및 흡착 상태 점검",
+        "클램프, 에지 그립 장치의 오염 및 마모 여부 확인",
+        "자동/수동 핸들링 절차 재교육 및 모니터링"
+      ]
+    },
+    {
+      "id": "cleaning_oxidation_issue",
+      "name": "세정/산화 공정 문제",
+      "rank_score_default": 1,
+      "symptoms": "세정 후 잔여 오염, 산화막 두께 불균일, 건조 불량",
+      "recommended_initial_actions": [
+        "습식/건식 세정 조건과 린스/건조 프로파일 확인",
+        "산화 공정 온도·시간·가스 조성 재검증",
+        "케미컬 및 DI 워터 품질 모니터링과 필터 상태 확인"
+      ]
+    }
+  ]
+}
+
