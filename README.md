@@ -14,13 +14,13 @@
 
 ```mermaid
 flowchart TD
-    A[Raw Data<br/>CSV/Sensor Logs] --> B[Data Loader<br/>Schema Validation]
-    B --> C{Validation<br/>Check}
-    C -->|Pass| D[Preprocessing<br/>Cleaning & Normalization]
-    C -->|Fail| E[Error Logging<br/>Skip & Alert]
-    D --> F[Feature Engineering<br/>Derivation & Clustering]
-    F --> G[Data Quality Check<br/>Final Verification]
-    G --> H[Processed Data<br/>(Ready for ML)]
+    A["Raw Data<br/>CSV/Sensor Logs"] --> B["Data Loader<br/>Schema Validation"]
+    B --> C{"Validation<br/>Check"}
+    C -->|Pass| D["Preprocessing<br/>Cleaning & Normalization"]
+    C -->|Fail| E["Error Logging<br/>Skip & Alert"]
+    D --> F["Feature Engineering<br/>Derivation & Clustering"]
+    F --> G["Data Quality Check<br/>Final Verification"]
+    G --> H["Processed Data<br/>(Ready for ML)"]
     
     style A fill:#e1f5ff,stroke:#01579b,stroke-width:2px
     style B fill:#fff3e0,stroke:#e65100,stroke-width:2px
